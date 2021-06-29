@@ -1,4 +1,3 @@
-const client = require("../db/redis").getClient();
 const RedisService = require("../services/RedisService");
 
 class RouteController {

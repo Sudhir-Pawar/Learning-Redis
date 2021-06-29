@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const logger = require("morgan");
 const methodOverride = require("method-override");
+require("./db/redis").getClient();
 const routes = require("./router/routes");
 
 const app = express();
