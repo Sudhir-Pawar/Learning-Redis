@@ -1,0 +1,11 @@
+.del:checked + span {
+  color: red;
+}
+.task-list {
+  list-style: none;
+}
+
+.add-button {
+  background-color: #18bc9c;
+  color: white;
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+    </style>
+    <link rel="stylesheet" href="./flatly.bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <!-- <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg> -->
+            <span class="fs-4">Redis Task Manager</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#tasks" class="nav-link active" aria-current="page">Tasks</a></li>
+            <li class="nav-item"><a href="#calls" class="nav-link">Calls</a></li>
+           </ul>
+        </header>
+        <!-- -------------Column layout-------------- -->
+        <div class="row align-items-start">
+            <div class="col">
+                <h3 id="tasks">Tasks:</h3>
+                <form action="/tasks?_method=DELETE" method="POST" class="m-2">
+                <ul class="task-list list-group list-group-flush">
+                <% if(tasks){ %>
+               <%  tasks.forEach((task,index)=>{ %>
+                
+                <li class="list-group-item">
+                    <label>
+                        <input type="checkbox" name="taskIndexes" class="del form-check-input me-1" value="<%=index %>">
+                        <span><%=task%></span>
+                    </label>
+                </li>
+                <%   }) %>
+                <% } %>
+                </ul>
+                <button type="submit" value="Delete Tasks" class="btn btn-outline-danger">Delete Tasks</button>
+                </form>
+                <form method="POST" action="/tasks" class="d-flex">
+                    <input type="text" name="task" placeholder="Task" class="form-control me-2" required>
+                    <button type="submit" class="btn add-button">Add</button>
+                </form>
+            </div>
+            <div class="col">
+                <h3 id="calls">Call:</h3>
+                <!-- --------------------call card start---------------------->
+                <div class="card border-light mb-3" style="max-width: 18rem;">
+                    <div class="card-header"><%=call.name%></div>
+                    <%delete call.name%>
+                    <div class="card-body">
+                    <%Object.keys(call).map((key)=>{ %>
+                        <p class="card-text"><%=key[0].toUpperCase() + key.slice(1,key.length)%>: <%=call[key]%></p>
+                    <%})%>                   
+                    </div>
+                  </div>
+                <!-- --------------------call card end---------------------->
+                
+                <h3>Edit next call:</h3>
+                <form action="/calls" method="post">
+                    <div class="form-group">
+                        <label>Contact Name:</label>
+                        <input type="text" class="form-control mt-2 mb-2" name="name" placeholder="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Company:</label>
+                        <input type="text" class="form-control mt-2 mb-2" name="Company" placeholder="Company" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone no:</label>
+                        <input type="tel" class="form-control mt-2 mb-2" name="phoneNo" placeholder="Phone No" required>
+                    </div>
+                    <div class="form-group">   
+                        <label>Date & Time:</label> 
+                        <input type="datetime-local" class="form-control mt-2 mb-2" name="datetime" placeholder="datetime" required>
+                    </div>
+                    <button type="submit" class="btn add-button">Add Call</button>
+                </form>  
+            </div>
+          </div>
+        <!-- -------------layout end-------------- -->
+</div>
+</body>
+</html>
