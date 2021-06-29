@@ -32,7 +32,6 @@ class RouteController {
             return task;
           }
         });
-        console.log(newTasks);
         await RedisService.listLTrim("tasks", tasks.length, tasks.length + 1);
         await RedisService.listRPush("tasks", newTasks);
       }

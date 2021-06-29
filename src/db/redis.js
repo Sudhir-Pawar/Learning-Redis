@@ -1,18 +1,19 @@
 const redis = require("redis");
+const { redisLogger } = require("../helpers/logger/winston");
 
 let client = null;
 
 const onConnect = () => {
-  console.log("Redis connection established");
+  redisLogger.info("Redis connection established");
 };
 const onError = (error) => {
-  console.log("Redis connection error" + error);
+  redisLogger.error("Redis connection error Error: " + error);
 };
 const onReconnecting = () => {
-  console.log("Re-establishing connection with redis");
+  redisLogger.warn("Re-establishing connection with redis");
 };
 const onEnd = () => {
-  console.log("Redis connection closed");
+  redisLogger.warn("Redis connection closed");
 };
 
 function createConnection() {
@@ -24,7 +25,7 @@ function createConnection() {
 
   process.on("SIGINT", () => {
     client.quit(() => {
-      console.log("Redis connection closed through app termination");
+      redisLogger.warn("Redis connection closed through app termination");
     });
   });
 
